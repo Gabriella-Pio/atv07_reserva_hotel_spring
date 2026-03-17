@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.luizegabriella.reserva.entity.DetalhesEstadia;
 import com.luizegabriella.reserva.entity.Reserva;
 import com.luizegabriella.reserva.entity.Status;
 import com.luizegabriella.reserva.entity.TipoQuarto;
@@ -88,5 +89,11 @@ public class ReservaController {
     @PatchMapping("/{id}/cancelar")
     public Reserva cancelar(@PathVariable Long id) {
         return service.cancelar(id);
+    }
+
+    @PostMapping("/{id}/detalhes")
+    public ResponseEntity<Reserva> adicionarDetalhes(@PathVariable Long id,
+            @RequestBody @Valid DetalhesEstadia detalhes) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.vincularDetalhes(id, detalhes));
     }
 }
