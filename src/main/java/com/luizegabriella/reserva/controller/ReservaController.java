@@ -91,10 +91,20 @@ public class ReservaController {
         return service.cancelar(id);
     }
 
-    
+    // Fase 2
+    // @PostMapping("/{id}/detalhes")
+    // public ResponseEntity<Reserva> adicionarDetalhes(@PathVariable Long id,
+    // @RequestBody @Valid DetalhesEstadia detalhes) {
+    // return
+    // ResponseEntity.status(HttpStatus.CREATED).body(service.vincularDetalhes(id,
+    // detalhes));
+    // }
+
+    // Fase 3
     @PostMapping("/{id}/detalhes")
     public ResponseEntity<Reserva> adicionarDetalhes(@PathVariable Long id,
             @RequestBody @Valid DetalhesEstadia detalhes) {
+        // Usa o service que já tem a lógica de vincular
         return ResponseEntity.status(HttpStatus.CREATED).body(service.vincularDetalhes(id, detalhes));
     }
 }

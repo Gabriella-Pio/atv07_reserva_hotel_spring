@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -19,7 +21,8 @@ import jakarta.validation.constraints.Size;
 public class DetalhesEstadia {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  // Retirado para Fase 3
+  // @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
   @Column
@@ -44,7 +47,15 @@ public class DetalhesEstadia {
   @Size(max = 300)
   private String observacoesQuarto;
 
-  @OneToOne(mappedBy = "detalhes")
+  // Fase 2
+  // @OneToOne(mappedBy = "detalhes")
+  // @JsonBackReference
+  // private Reserva reserva;
+
+  // Fase 3
+  @OneToOne
+  @MapsId
+  @JoinColumn(name = "id")
   @JsonBackReference
   private Reserva reserva;
 

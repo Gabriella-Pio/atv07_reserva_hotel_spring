@@ -64,8 +64,15 @@ public class Reserva {
     @Column(name = "observacoes", length = 500)
     private String observacoes;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "detalhes_id", unique = true)
+    // Fase 2
+    // @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch =
+    // FetchType.LAZY)
+    // @JoinColumn(name = "detalhes_id", unique = true)
+    // @JsonManagedReference
+    // private DetalhesEstadia detalhes;
+
+    // Fase 3
+    @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private DetalhesEstadia detalhes;
 
