@@ -84,6 +84,7 @@ public class ReservaService {
         if (reserva.getStatus() == Status.CANCELADA || reserva.getStatus() == Status.CONCLUIDA) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Reserva inválida para detalhes");
         }
+        detalhes.setReserva(reserva);
         reserva.setDetalhes(detalhes);
         return repository.save(reserva);
     }
@@ -130,7 +131,7 @@ public class ReservaService {
         }
 
         reserva.setStatus(Status.EM_HOSPEDAGEM);
-        reserva.setDataCheckIn(null);
+        reserva.setDataCheckIn(LocalDateTime.now());
 
         return repository.save(reserva);
     }
@@ -146,7 +147,7 @@ public class ReservaService {
         }
 
         reserva.setStatus(Status.CONCLUIDA);
-        reserva.setDataCheckOut(null);
+        reserva.setDataCheckOut(LocalDateTime.now());
 
         return repository.save(reserva);
     }
