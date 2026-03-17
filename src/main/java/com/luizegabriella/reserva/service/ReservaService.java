@@ -7,6 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.luizegabriella.reserva.entity.*;
 import com.luizegabriella.reserva.repository.ReservaRepository;
 
+import jakarta.transaction.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -73,6 +75,17 @@ public class ReservaService {
         LocalDate fim = inicio.plusDays(dias);
 
         return repository.findByDataEntradaBetween(inicio, fim);
+    }
+
+    // DETALHES DA ESTADIA
+    @Transactional
+    public Reserva vincularDetalhes(Long id, DetalhesEstadia detalhes) {
+        Reserva reserva = buscarPorId(id);
+        if (reserva.getStatus() == Status.CANCELADA || reserva.getStatus() == Status.CONCLUIDA) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Reserva inválida para detalhes");
+        }
+        reserva.setDetalhes(detalhes);
+        return repository.save(reserva);
     }
 
     // BUSCA POR NOME OU EMAIL
@@ -163,7 +176,7 @@ public class ReservaService {
         Reserva reserva = buscarPorId(id);
 
         if (reserva.getStatus() == Status.EM_HOSPEDAGEM ||
-            reserva.getStatus() == Status.CONCLUIDA) {
+                reserva.getStatus() == Status.CONCLUIDA) {
 
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Reserva não pode ser cancelada");

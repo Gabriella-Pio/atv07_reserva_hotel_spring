@@ -239,4 +239,12 @@ public class Reserva {
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
+
+    public DetalhesEstadia getDetalhes() {
+        return detalhes;
+    }
+
+    public void setDetalhes(DetalhesEstadia detalhes) {
+        this.detalhes = detalhes;
+    }
 }
