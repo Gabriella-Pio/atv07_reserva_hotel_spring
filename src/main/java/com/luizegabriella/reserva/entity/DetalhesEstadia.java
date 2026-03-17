@@ -1,5 +1,7 @@
 package com.luizegabriella.reserva.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,8 +44,9 @@ public class DetalhesEstadia {
   @Size(max = 300)
   private String observacoesQuarto;
 
-  // @OneToOne(mappedBy = "detalhes")
-  // private Reserva reserva;
+  @OneToOne(mappedBy = "detalhes")
+  @JsonBackReference
+  private Reserva reserva;
 
   public DetalhesEstadia() {
   }
@@ -115,13 +118,13 @@ public class DetalhesEstadia {
     this.observacoesQuarto = observacoesQuarto;
   }
 
-  // public Reserva getReserva() {
-  // return reserva;
-  // }
+  public Reserva getReserva() {
+    return reserva;
+  }
 
-  // public void setReserva(Reserva reserva) {
-  // this.reserva = reserva;
-  // }
+  public void setReserva(Reserva reserva) {
+    this.reserva = reserva;
+  }
 
   @Override
   public int hashCode() {
