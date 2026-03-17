@@ -91,6 +91,7 @@ public class ReservaController {
         return service.cancelar(id);
     }
 
+    
     @PostMapping("/{id}/detalhes")
     public ResponseEntity<Reserva> adicionarDetalhes(@PathVariable Long id,
             @RequestBody @Valid DetalhesEstadia detalhes) {
